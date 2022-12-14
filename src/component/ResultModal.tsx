@@ -1,4 +1,5 @@
 import React,{useEffect, useCallback} from 'react';
+import "../css/ResultModal.css";
 
 
 interface Props {
@@ -13,7 +14,7 @@ function ResultModal({resultModalState,setResultModalState, setStartModalState} 
         if (event.key === 'Enter') {
           console.log("Enter");
           setResultModalState(false)
-          setStartModalState(false)
+          setStartModalState(true)
         }
       }, []);
     
@@ -22,7 +23,7 @@ function ResultModal({resultModalState,setResultModalState, setStartModalState} 
       }, []);
   
   return (
-<div className={"start-Modal" + (resultModalState ? "-hidden" : "-visible" )}>
+<div className={"result-modal" + (resultModalState ? "-visible" : "-hidden" )}>
 
 あなたのwpmは100です
 
