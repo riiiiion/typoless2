@@ -1,0 +1,19 @@
+.result-modal-visible {
+    background: #cccccc;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+   
+  }
+  
+  .result-modal-hidden {
+    display: none;
+  }
+  
