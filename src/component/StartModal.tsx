@@ -10,7 +10,9 @@ function StartModal({ startModalState, setStartModalState }: Props) {
   const hiddenStartModal = useCallback((event: any) => {
     if (event.shiftKey) {
       console.log("シフトが押されました！");
+      document.removeEventListener("keydown", hiddenStartModal, false)
       setStartModalState(false);
+      document.getElementsByTagName("span")[0].className = "spotLetter";
     }
   }, []);
 
@@ -21,7 +23,7 @@ function StartModal({ startModalState, setStartModalState }: Props) {
 
   return (
     <div className={"start-modal" + (startModalState ? "-visible" : "-hidden")}>
-      start
+      Shiftを押すとスタートします
     </div>
   );
 }

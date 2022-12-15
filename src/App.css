@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+span {
+  color: darkgrey;
+  font-size: 150%;
+}
+
+.typingContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  height: 30%;
+  position: absolute;
+  left: 10%;
+  bottom: 5%;
+  overflow: scroll;
+}
+
+p {
+ 
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+}
+
+.spotLetter {
+  color: black;
+}
