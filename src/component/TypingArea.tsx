@@ -2,13 +2,15 @@ import React from 'react';
 import Word from './Word';
 
 type Prop = {
-
+    typingWordList?: String[] | null
 }
 
-const TypingArea: React.FC<Prop> = () => {
+const TypingArea: React.FC<Prop> = ({typingWordList}) => {
     return (
-        <div>
-            <Word />
+        <div className="typingContainer">
+            <Word 
+            typingWordList={typingWordList}
+            />
         </div>
     )
 }
