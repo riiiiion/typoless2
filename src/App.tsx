@@ -6,6 +6,7 @@ import StartModal from "./component/StartModal";
 import ResultModal from "./component/ResultModal";
 import TypingArea from "./component/TypingArea";
 import Timer from "./component/Timer";
+import Enemy from "./component/Enemy";
 
 
 function App() {
@@ -28,10 +29,11 @@ function App() {
   let inputCount = useRef(0)
   const spanTags = document.getElementsByTagName("span");
   const spotTag = document.getElementsByClassName("spotLetter") as HTMLCollectionOf<HTMLElement>;
-  
+  const inputSound = new Audio("sound/kick.mp3")
+  const missSound = new Audio("sound/Quiz-Wrong_Buzzer02-1.mp3")
 
   function keypress_ivent(e:any) {
-    const inputSound = new Audio("public/kick.mp3")
+    
       // console.log(spanTags)
       // console.log(spotTag)
       // console.log(counter)
@@ -42,10 +44,14 @@ function App() {
           spotTag[0].className = "";
           spanTags[++counter].className = "spotLetter";
           inputCount.current++;
-          inputSound.play()
-          console.log(inputCount)
+          inputSound.currentTime = 0;
+          inputSound.play();
+          console.log(inputCount);
+      } else if (e.key !== "shift") {
+        missSound.currentTime = 0;
+        missSound.play();
       }
-      
+         
       // return false; 
 }
 
@@ -58,6 +64,7 @@ function App() {
         startModalState={startModalState} 
         setResultModalState={setResultModalState}  
       />
+      <Enemy/>
       <StartModal
         startModalState={startModalState}
         setStartModalState={setStartModalState}
@@ -71,6 +78,7 @@ function App() {
       <TypingArea 
       typingWordList={typingWordList}
       />
+    
     </div>
   );
 }
