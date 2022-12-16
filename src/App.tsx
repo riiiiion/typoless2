@@ -16,7 +16,7 @@ function App() {
   
   
   useEffect(() => {
-    axios.get(`dummyData/dummy1.json`).then((res: AxiosResponse) => {
+    axios.get(`/question`).then((res: AxiosResponse) => {
       setTypingWordList(res.data);
       console.log(res);
     })
