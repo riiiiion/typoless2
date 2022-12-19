@@ -1,49 +1,5 @@
-// import React, { useEffect } from "react";
-// import Word from "./Word";
-// // import TypingArea from "./TypingArea";
-
-// type Prop = {
-
-// }
-
-// const Timer: React.FC<Prop> = () => {
-    
-//     function startTimer() {
-//         let time = 30;
-//         const id = setInterval(() => {
-//             if (time === 0) {
-//                 clearInterval(id);
-//             }
-//             const divEl = document.getElementsByClassName("timer");
-//             console.log("aaa",divEl)
-//             divEl[0].innerHTML = String(time) + " Sec";
-//             time--;
-//         }, 1000);
-        
-//     }
-
-//     useEffect(() => {
-//         startTimer()
-//         document.addEventListener("load", startTimer, false);
-//     }, []);
-
-//     return (
-//         <div className="timer">
-//             0 Sec            
-//         </div>
-//     );    
-
-
-// }
-
-// export default Timer;
-
-/* EOF */
-
-
-
 import React, { useEffect } from "react";
-import "../css/Timer.css"
+import "../css/cpBattleCss/Timer.css"
 
 
 type Props = {

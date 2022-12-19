@@ -12,6 +12,7 @@ const Word:React.FC<Prop> = ({typingWordList}) => {
         return letterArray.map((letter,i) => 
              <span 
              key={"span" + String(i)}
+             className={"unSpotLetter"}
              >
                 {letter}
         </span>

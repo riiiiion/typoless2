@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from "react";
-import "../css/StartModal.css";
+import "../css/cpBattleCss/StartModal.css";
 
 interface Props {
   startModalState: boolean;
