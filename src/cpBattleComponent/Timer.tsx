@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "../css/cpBattleCss/Timer.css"
-
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     startModalState: Boolean
@@ -8,6 +8,7 @@ type Props = {
 }
 
 const Timer: React.FC<Props> = ({startModalState, setResultModalState}) => {
+    const navigate = useNavigate();
     
     function startTimer() {
         console.log("startTimer()")
@@ -16,6 +17,7 @@ const Timer: React.FC<Props> = ({startModalState, setResultModalState}) => {
             if (time === 0) {
                 setResultModalState(true);
                 clearInterval(id);
+                navigate("result");
                 console.log("clearInterval()")
             }
             const timerEl = document.getElementsByClassName("timer");

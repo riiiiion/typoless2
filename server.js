@@ -24,6 +24,44 @@ app.get("/get/question", async (req, res) => {
   res.json(questionArr).status(200);
 });
 
+app.post("/post/signup", async (req,res) => {
+  console.log("first")
+  const newAccount = {
+    name: req.body.name,
+    password: req.body.password,
+    high_score:null,
+    icon: "icon1"
+  }
+
+//すでに登録されているアカウントではないかの確認処理
+  const checkUnique = await knex("account")
+  .select("*")
+  .where("name",req.body.name)
+  if(checkUnique){
+    console.log("すでに登録されています")
+    res.status(409).end();
+    return;
+  }
+
+//データの挿入
+  await knex("account").insert(newAccount)
+
+  
+//データが正しく挿入されたかの確認処理
+  const addAccount = await knex("account")
+    .select("*")
+    .where("name",req.body.name)
+    .andWhere("password","=",req.body.password);
+    if(!addAccount){
+      console.log("signupError")
+      res.status(400).end();
+    } else {
+      console.log("signupSuccess")
+      res.status(200).end()
+    }
+})
+
+
 //login処理　
 app.post("/post/login",async (req,res) =>{
   const name = req.body.name
