@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField } from "@mui/material";
+import "../css/topCss/Top.css";
+import axios, { AxiosResponse } from "axios";
 
 
 function Login() {
@@ -8,10 +10,31 @@ function Login() {
         register,
         handleSubmit,
         formState: { errors },
+        getValues
       } = useForm();
       const onSubmit = (data: any) => {
         console.log(data);
-      };
+    };
+//nameとpasswordを入れてpostするとpassword を除いた以下の配列を返してます。
+//ログイン情報が見つからなかった場合空の配列が返ります。
+// [
+//     {
+//         "name": "rion",
+//         "high_score": 40.03,
+//         "icon": "icon1"
+//     }
+// ]
+    function comparisonUser() {
+      axios.post("/post/login",{
+        name:getValues("nameRequired"),
+        password:getValues("passwordRequired")
+      })
+      .then((res: AxiosResponse) => {
+        console.log(res);
+      });
+      // console.log(getValues("nameRequired"))
+      // console.log(getValues("passwordRequired"))
+    }
 
     return (
         
@@ -21,52 +44,42 @@ function Login() {
         <form
         id="form"
         onSubmit={handleSubmit(onSubmit)}
-        style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "250px",
-            margin: "3rem",
-        }}
         >
       {/* register 関数を利用し、input コントロールを hook に登録します。 */}
-        <TextField
-            {...register("nameRequired", { required: true })}
-            error={!!errors.nameRequired}
-            id="name"
-            label="username"
-            variant="outlined"
-            helperText={!!errors.nameRequired && "名前を入力してください。"}
-            style={{
-            marginBottom: "1rem",
-            }}
-        />
-        <TextField
-            {...register("passwordRequired", { required: true })}
-            error={!!errors.passwordRequired}
-            id="password"
-            label="password"
-            variant="outlined"
-            type="password"
-            helperText={
-            !!errors.passwordRequired && "パスワードを入力してください。"
-            }
-            style={{
-            marginBottom: "1rem",
-            }}
-        />
-        <Button variant="contained" color="primary" type="submit">
-        ログイン
-        </Button>
-    </form>
+            <TextField
+                {...register("nameRequired", { required: true })}
+                error={!!errors.nameRequired}
+                id="name"
+                label="username"
+                variant="outlined"
+                helperText={!!errors.nameRequired && "名前を入力してください。"}
+            />
+            <TextField
+                {...register("passwordRequired", { 
+                  required: true,
+                  pattern: /\d{4}/,
+                //"^[0-9]{4}$"　\d{4}
+                })}
+                error={!!errors.passwordRequired}
+                id="password"
+                label="password"
+                variant="outlined"
+                type="password"
+                helperText={
+                !!errors.passwordRequired && "パスワードを入力してください。"
+                }
+            />
+            <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={comparisonUser}
+            >
+            ログイン
+            </Button>
+        </form>
   </Box>
     );
   }
-//ログイン画面これ参考に作りませんか？
-//https://watermargin.net/programming/react/react-mui-textfield-react-form-hook-validation/
-//りょ
-//@mui/materialはHPバーの実装でインストール済みです。
-//いろんな素材があって便利そうです
-//CSSはまとめてCssのフォルダに各フォルダを作ったんでそっちで一括管理しませんか？
-//うす！勝手して申し訳ございません🙇‍♂️
-//やめてくださいw
+
   export default Login;

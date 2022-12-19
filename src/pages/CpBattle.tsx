@@ -20,7 +20,7 @@ function App() {
 
   //問題文取得API
   useEffect(() => {
-    axios.get(`/question`).then((res: AxiosResponse) => {
+    axios.get(`/get/question`).then((res: AxiosResponse) => {
       setTypingWordList(res.data);
       console.log(res);
     });
