@@ -1,6 +1,14 @@
 #form {
-    display: "flex",
-    flexDirection: "column",
-    width: "250px",
-            margin: "3rem",
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin: 3rem;
+} 
+
+#name {
+    margin-bottom: 1rem;
+}
+
+#password {
+    margin-bottom: 1rem;
 }
