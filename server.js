@@ -30,7 +30,7 @@ app.post("/post/signup", async (req,res) => {
     name: req.body.name,
     password: req.body.password,
     high_score:null,
-    icon: "icon1"
+    icon: req.body.icon
   }
 
 //すでに登録されているアカウントではないかの確認処理
@@ -46,7 +46,7 @@ app.post("/post/signup", async (req,res) => {
 //データの挿入
   await knex("account").insert(newAccount)
 
-  
+
 //データが正しく挿入されたかの確認処理
   const addAccount = await knex("account")
     .select("*")
@@ -70,7 +70,6 @@ app.post("/post/login",async (req,res) =>{
   .select("name","high_score","icon")
   .where("name",name)
   .andWhere("password","=",password)
-  //{name: 'rion',password:'0000',high_score:40.03,icon:"icon1"},
   console.log(loginAccount)
   res.json(loginAccount).status(200)
 })
@@ -85,6 +84,8 @@ app.get("/get/ranking", async (req, res) => {
   console.log(rankingList)
   res.json(rankingList).status(200);
 });
+
+
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname,'/build/index.html'));

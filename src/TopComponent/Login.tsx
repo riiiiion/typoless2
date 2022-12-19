@@ -21,7 +21,7 @@ function Login() {
 //     {
 //         "name": "rion",
 //         "high_score": 40.03,
-//         "icon": "icon1"
+//         "icon": "アザラシ.png"
 //     }
 // ]
     function comparisonUser() {
