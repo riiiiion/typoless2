@@ -1,23 +1,25 @@
 import React,{useEffect, useCallback,useRef} from 'react';
 import "../css/ResultModal.css";
-
+import {typingCounter, setTypingCounter} from "../globalVariables"
 
 interface Props {
-  resultModalState: Boolean;
+  resultModalState: boolean;
   setStartModalState: Function;
   setResultModalState: Function;
-  inputCount: number;
+  typingCounter: number;
 }
 
-function ResultModal({resultModalState,setResultModalState, setStartModalState, inputCount} : Props) {
-  let wpm = inputCount / 30 / 5 * 60;
+function ResultModal({resultModalState,setResultModalState, setStartModalState, typingCounter} : Props) {
+  let wpm = typingCounter / 30 / 5 * 60;
 
     const hiddenResultModal = useCallback((event:any) => {
         if (event.key === 'Enter') {
           console.log("Enter");
-          document.removeEventListener("keydown", hiddenResultModal, false);
-          setResultModalState(false)
-          setStartModalState(true)
+          window.location.reload()
+          // document.removeEventListener("keydown", hiddenResultModal, false);
+          // setResultModalState(false)
+          // setStartModalState(true)
+          // setTypingCounter(0);
         }
       }, []);
     

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
 type Prop = {
     typingWordList?:String[] | null
@@ -23,6 +23,7 @@ const Word:React.FC<Prop> = ({typingWordList}) => {
         >{tags}
         </p>
     })
+
     return (
         <>
             {addLetterTags}

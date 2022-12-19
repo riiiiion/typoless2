@@ -11,7 +11,7 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     font-size:  20px;
-    z-index: 10;
+    z-index: 100;
   }
   
   .result-modal-hidden {

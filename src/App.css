@@ -37,7 +37,7 @@
   }
 }
 
-span {
+.typingContainer > span {
   color: darkgrey;
   font-size: 150%;
 }
@@ -64,4 +64,12 @@ p {
 
 .spotLetter {
   color: black;
+}
+
+.hp-var {
+  /* margin: 40px; */
+  background-color: rgb(230, 233, 244) !important;
+  width: 50%;
+  height: 8px !important;
+  text-align: center ;
 }
