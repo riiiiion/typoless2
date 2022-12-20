@@ -63,15 +63,25 @@ app.post("/post/signup", async (req,res) => {
 
 
 //login処理　
+//ユーザーが見つかったらユーザーデータ[{userdata}]でレスポンスを返す。なかったらFalseをレスポンス。
 app.post("/post/login",async (req,res) =>{
-  const name = req.body.name
-  const password = req.body.password
-  const loginAccount = await knex("account")
-  .select("name","high_score","icon")
-  .where("name",name)
-  .andWhere("password","=",password)
-  console.log(loginAccount)
-  res.json(loginAccount).status(200)
+  const name = req.body.name;
+  const password = req.body.password;
+  console.log(name,password)
+  try {
+    const loginAccount =  await knex("account")
+    .select("name","high_score","icon")
+    .where("name",name)
+    .andWhere("password","=",password);
+    console.log(loginAccount);
+    if (loginAccount[0]){
+      res.json(loginAccount).status(200);
+    } else {
+      res.json(false).status(200);
+    }
+  } catch (err) {
+    console.log("error");
+  }
 })
 
 //ランキング取得処理

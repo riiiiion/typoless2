@@ -15,7 +15,8 @@ function App() {
   const [resultModalState, setResultModalState] = useState<boolean>(false);
   const [typingWordList, setTypingWordList] = useState<String[] | null>(null);
   const [enemyHp, setEnemyHp] = useState<number>(100);
-
+  const [myHp, setMyHp] = useState<number>(100);
+ const  gameLevel = useRef()
 
 
   //問題文取得API
@@ -35,8 +36,12 @@ function App() {
       <Timer
         startModalState={startModalState}
         setResultModalState={setResultModalState}
+        resultModalState = {resultModalState}
       />
-      <LinearProgress variant="determinate" value={enemyHp}  className = "hp-var"/>
+      <span className="hp-var">
+      <LinearProgress variant="determinate" value={myHp}  className = "myHp-var"/>
+      <LinearProgress variant="determinate" value={enemyHp}  className = "enemyHp-var"/>
+      </span>
       <Enemy />
       <StartModal
         startModalState={startModalState}
@@ -50,8 +55,10 @@ function App() {
       <TypingArea
         typingWordList={typingWordList}
         resultModalState={resultModalState}
+        setResultModalState={setResultModalState}
         startModalState={startModalState}
         setEnemyHp={setEnemyHp}
+        setMyHp={setMyHp}
       />
     </div>
     // </TypingCountProvider>

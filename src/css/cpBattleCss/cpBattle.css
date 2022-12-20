@@ -54,7 +54,6 @@
 }
 
 p {
- 
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 0px;
@@ -66,10 +65,22 @@ p {
   color: black;
 }
 
-.hp-var {
-  /* margin: 40px; */
+.enemyHp-var {
   background-color: rgb(230, 233, 244) !important;
-  width: 50%;
+  width: 45%;
   height: 8px !important;
   text-align: center ;
+  transform: scaleX(-1);
+}
+
+
+.myHp-var {
+  background-color: rgb(230, 233, 244) !important;
+  width: 45%;
+  height: 8px !important;
+  text-align: center ;
+}
+.hp-var {
+display:flex;
+justify-content:space-around;
 }

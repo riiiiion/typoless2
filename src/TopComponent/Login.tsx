@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField } from "@mui/material";
 import "../css/topCss/Top.css";
 import axios, { AxiosResponse } from "axios";
+import { loginUserData, setLoginUserData } from "../cpBattleComponent/globalVariables";
+
+type Props = {
+  setLogin:(bool:boolean)=>void
+};
 
 
-function Login() {
+const Login: React.FC<Props> = ({ setLogin }) => {
     const {
         register,
         handleSubmit,
@@ -14,7 +19,12 @@ function Login() {
       } = useForm();
       const onSubmit = (data: any) => {
         console.log(data);
-    };
+};
+
+
+
+
+
 //nameとpasswordを入れてpostするとpassword を除いた以下の配列を返してます。
 //ログイン情報が見つからなかった場合空の配列が返ります。
 // [
@@ -25,13 +35,35 @@ function Login() {
 //     }
 // ]
     function comparisonUser() {
-      axios.post("/post/login",{
-        name:getValues("nameRequired"),
-        password:getValues("passwordRequired")
-      })
-      .then((res: AxiosResponse) => {
-        console.log(res);
-      });
+      const loginButton = document.getElementById("loginButton");
+      const name = getValues("nameRequired");
+      const password = getValues("passwordRequired");
+      const errorTag = document.getElementById("errorMessage");
+
+      if (name !== "" && password !== "") {
+        loginButton!.innerHTML = "ログイン中・・・";
+        axios.post("/post/login",{
+          name:getValues("nameRequired"),
+          password:getValues("passwordRequired")
+        })
+        .then((res: AxiosResponse) => {
+          console.log(Boolean(res.data));
+          // const errorTag = document.getElementById("errorMessage");
+          if (res.data) {
+            setLoginUserData(res.data[0])
+            errorTag!.innerHTML = "";
+            const login = document.getElementsByClassName("MuiBox-root") as HTMLCollectionOf<HTMLElement>;
+            login[0].style.display = "none";
+            loginButton!.innerHTML = "ログイン";
+            setLogin(true)
+          } else {
+            errorTag!.innerHTML = "ユーザーが存在しないまたはパスワードが違います";
+            loginButton!.innerHTML = "ログイン";
+          }
+        });
+      } else {
+        errorTag!.innerHTML = "ユーザー名・パスワードを入力してください";
+      }
       // console.log(getValues("nameRequired"))
       // console.log(getValues("passwordRequired"))
     }
@@ -70,6 +102,7 @@ function Login() {
                 }
             />
             <Button
+            id="loginButton"
             variant="contained"
             color="primary"
             type="submit"
@@ -77,6 +110,7 @@ function Login() {
             >
             ログイン
             </Button>
+            <p id="errorMessage"></p>
         </form>
   </Box>
     );

@@ -1,6 +1,14 @@
 import React,{useEffect, useCallback,useRef} from 'react';
 import "../css/cpBattleCss/ResultModal.css";
-import {typingCounter, setTypingCounter} from "./globalVariables"
+import { Link } from "react-router-dom";
+import {
+  correctTypingCounter,
+  setCorrectTypingCounter,
+  inCorrectTypingCounter,
+  setInCorrectTypingCounter,
+  totalTypingCounter,
+  setTotalTypingCounter,
+} from "./globalVariables";
 
 interface Props {
   resultModalState: boolean;
@@ -9,7 +17,7 @@ interface Props {
 }
 
 function ResultModal({resultModalState,setResultModalState, setStartModalState} : Props) {
-  let wpm = typingCounter / 30 / 5 * 60;
+  let wpm = correctTypingCounter / 30 / 5 * 60;
 
     const hiddenResultModal = useCallback((event:any) => {
         if (event.key === 'Enter') {
@@ -25,12 +33,14 @@ function ResultModal({resultModalState,setResultModalState, setStartModalState} 
   
   return (
 <div className={"result-modal" + (resultModalState ? "-visible" : "-hidden" )}>
+<div>対戦終了！</div>
 <div>
 あなたのwpmは{wpm}です
 </div>
 <div>
  enterを押すと最初に戻ります
  </div>
+ <Link to={`/ranking`}>ランキング画面</Link>
 
 </div>
   );
