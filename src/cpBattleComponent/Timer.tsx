@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../css/cpBattleCss/Timer.css";
 import { useNavigate } from "react-router-dom";
 
@@ -15,22 +15,19 @@ const Timer: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   const endSound = new Audio("sound/round_gong.mp3");
+  let countDownId = useRef<NodeJS.Timer | number>(0);
 
   function startTimer() {
     let time = 29;
     const id = setInterval(() => {
-      console.log("Timerのmodal");
-      console.log(resultModalState);
-      if (resultModalState) {
-        time = 0;
-      }
-
       if (time === 0) {
         setResultModalState(true);
         clearInterval(id);
         // navigate("result");
         console.log("clearInterval()");
         endSound.play();
+        const timerEl = document.getElementsByClassName("timer");
+        timerEl[0].innerHTML = "終了";
       }
       const timerEl = document.getElementsByClassName("timer");
       timerEl[0].innerHTML = String(time) + " Sec";
@@ -40,14 +37,24 @@ const Timer: React.FC<Props> = ({
     return id;
   }
 
+  //早期決着の場合の処理
+  useEffect(() => {
+    if (resultModalState) {
+      clearInterval(countDownId.current);
+      endSound.play();
+      const timerEl = document.getElementsByClassName("timer");
+      timerEl[0].innerHTML = "終了";
+    }
+  }, [resultModalState]);
+
   useEffect(() => {
     console.log("useEffect()");
     if (startModalState === false) {
       console.log("スタートトリガー");
-      const interval = startTimer();
+      countDownId.current = startTimer();
       return function cleanUp() {
         console.log("cleanUp()");
-        clearInterval(interval);
+        clearInterval(countDownId.current);
       };
     }
   }, [startModalState]);
