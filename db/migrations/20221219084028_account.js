@@ -8,7 +8,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("account", function (table) {
     table.increments("id").primary();
     table.string("name").notNullable();
-    table.integer("password").notNullable();
+    table.string("password").notNullable();
     table.float("high_score");
     table.string("icon");
     table.unique("name");

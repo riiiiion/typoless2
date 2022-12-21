@@ -1,0 +1,71 @@
+
+.title {
+    text-align: center;
+    vertical-align: middle;
+    white-space: pre;
+}
+
+.close {
+    text-align: right;
+    white-space: pre;
+}
+
+.ranking {
+    vertical-align: middle;
+    position: relative;
+    margin: 0 auto;
+    /*background: yellow;*/
+}
+
+.block {
+    border: 2px solid;
+    vertical-align: middle;
+    margin: 10px 10px 10px 10px;
+    flex-flow: row; 
+    display: flex;
+    /*background: green;*/
+}
+
+.number {
+    /*border: 2px solid;*/
+    /*top: 50%;*/
+    transform: translateY(30%);
+    font-size:larger;
+    text-align: center;
+    vertical-align:middle;
+    width: 15%;
+    height: 40px;
+    display: inline;
+    /*background: blue;*/
+}
+
+.img {
+    /*border: 2px solid;*/
+    width: 5%;
+    height: auto;
+    display: inline;
+    /*background: red;*/
+}
+
+.name {
+    /*border: 2px solid;*/
+    transform: translateY(30%);
+    font-size:larger;
+    text-align: center;
+    width: 50%;
+    height: 40px;
+    display: inline;
+    /*position:absolute;*/
+    /*background: skyblue;*/
+}
+
+.score {
+    /*border: 2px solid;*/
+    transform: translateY(30%);
+    font-size:larger;
+    text-align: center;
+    width: 30%;
+    height: 40px;
+    display: inline;
+    /*background: red;*/
+}

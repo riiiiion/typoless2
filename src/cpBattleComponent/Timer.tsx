@@ -1,72 +1,69 @@
-import React, { useEffect } from "react";
-import "../css/cpBattleCss/Timer.css"
+import React, { useEffect, useRef } from "react";
+import "../css/cpBattleCss/Timer.css";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-    startModalState: Boolean
-    setResultModalState: Function
-}
+  startModalState: Boolean;
+  resultModalState: Boolean;
+  setResultModalState: Function;
+};
 
-const Timer: React.FC<Props> = ({startModalState, setResultModalState}) => {
-    const navigate = useNavigate();
-    
-    function startTimer() {
-        console.log("startTimer()")
-        let time = 29;
-        const id = setInterval(() => {
-            if (time === 0) {
-                setResultModalState(true);
-                clearInterval(id);
-                navigate("result");
-                console.log("clearInterval()")
-            }
-            const timerEl = document.getElementsByClassName("timer");
-            timerEl[0].innerHTML = String(time) + " Sec";
-            time--;
-        }, 1000);
+const Timer: React.FC<Props> = ({
+  startModalState,
+  resultModalState,
+  setResultModalState,
+}) => {
+  const navigate = useNavigate();
+  const endSound = new Audio("sound/round_gong.mp3");
+  let countDownId = useRef<NodeJS.Timer | number>(0);
 
-        return id;
+  function startTimer() {
+    let time = 29;
+    const id = setInterval(() => {
+      if (time === 0) {
+        setResultModalState(true);
+        clearInterval(id);
+        // navigate("result");
+        console.log("clearInterval()");
+        endSound.play();
+        const timerEl = document.getElementsByClassName("timer");
+        timerEl[0].innerHTML = "終了";
+      }
+      const timerEl = document.getElementsByClassName("timer");
+      timerEl[0].innerHTML = String(time) + " Sec";
+      time--;
+    }, 1000);
+
+    return id;
+  }
+
+  //早期決着の場合の処理
+  useEffect(() => {
+    if (resultModalState) {
+      clearInterval(countDownId.current);
+      endSound.play();
+      const timerEl = document.getElementsByClassName("timer");
+      timerEl[0].innerHTML = "終了";
     }
+  }, [resultModalState]);
 
-    useEffect(() => {
-        console.log("useEffect()")
-        if (startModalState === false) {
-            console.log("スタートトリガー")
-            const interval = startTimer()
-            return function cleanUp() {
-                console.log("cleanUp()")
-                clearInterval(interval);
-            }
-        }
+  useEffect(() => {
+    console.log("useEffect()");
+    if (startModalState === false) {
+      console.log("スタートトリガー");
+      countDownId.current = startTimer();
+      return function cleanUp() {
+        console.log("cleanUp()");
+        clearInterval(countDownId.current);
+      };
+    }
+  }, [startModalState]);
 
-    }, [startModalState]);
-
-    // useEffect(() => {
-    //     document.addEventListener("load", startTimer, false);
-    // }, []);
-
-    // useEffect(() => {
-    //     const interval = setInterval(() = > {
-    //         startTimer();
-    //     }, 1000);
-    //
-    //      return function cleanUp() {
-    //          clearInterval(interval);
-    //      }
-    // }, []);
-
-    return (
-        <div className="outer">
-            <label className="timer"> 30 Sec</label>         
-        </div>
-    );    
-}
+  return (
+    <div className="outer">
+      <label className="timer"> 30 Sec</label>
+    </div>
+  );
+};
 
 export default Timer;
-
-
-/* EOF */
-
-
-
-
