@@ -19,7 +19,7 @@ function Top() {
         <>
         <Login setLogin={setLogin} />
         <p id="loginUserName">{loginUserData.name}</p>
-        <img id="icon" src={loginUserData.icon} alt="icon" />
+        <img id="icon" src={"icon_images/" + loginUserData.icon} alt="icon" />
         <div className="buttonContainer">
             <button onClick={loginForm}>ログイン</button>
             <button onClick={()=>{navigate("cpBattle")}}>CP対戦</button>
