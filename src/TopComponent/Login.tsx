@@ -110,8 +110,18 @@ const Login: React.FC<Props> = ({ setLogin }) => {
             >
             ログイン
             </Button>
-            <p id="errorMessage"></p>
+            <Button
+            id="loginButton"
+            variant="contained"
+            color="primary"
+            type="submit"
+            // onClick={}
+            >
+            新規登録
+            </Button>
+
         </form>
+        <p id="errorMessage"></p>
   </Box>
     );
   }

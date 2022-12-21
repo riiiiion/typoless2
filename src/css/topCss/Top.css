@@ -40,3 +40,8 @@
     width: 40px;
     border-radius: 50%;
 }
+
+#errorMessage {
+    position: absolute;
+    top: 300px;
+}

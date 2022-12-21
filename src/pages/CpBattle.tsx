@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios, { AxiosResponse } from "axios";
-import "../css/cpBattleCss/CpBattle.css";
+import "../css/cpBattleCss/cpBattle.css";
 import StartModal from "../cpBattleComponent/StartModal";
 import ResultModal from "../cpBattleComponent/ResultModal";
 import TypingArea from "../cpBattleComponent/TypingArea";

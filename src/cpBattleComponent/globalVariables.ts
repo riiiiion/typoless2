@@ -16,7 +16,7 @@ export const setTotalTypingCounter = (num: number) => {
   totalTypingCounter = num
 }
 
-export let loginUserData:{name: string, high_score: number, icon: string} = { name: "ゲスト", high_score: 39.03, icon: "icon_images/icon-default.webp"};
+export let loginUserData:{name: string, high_score: number, icon: string} = { name: "ゲスト", high_score: 39.03, icon: "icon-default.webp"};
 export let setLoginUserData = (userData:{name: string, high_score: number, icon: string}) => {
   loginUserData = userData;
   console.log(loginUserData);
