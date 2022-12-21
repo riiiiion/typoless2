@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios, { AxiosResponse } from "axios";
-import "../css/cpBattleCss/cpBattle.css";
+import "../css/cpBattleCss/CpBattle.css";
 import StartModal from "../cpBattleComponent/StartModal";
 import ResultModal from "../cpBattleComponent/ResultModal";
 import TypingArea from "../cpBattleComponent/TypingArea";
 import Timer from "../cpBattleComponent/Timer";
-import Enemy from "../cpBattleComponent/Enemy";
+import BattleImageArea from "../cpBattleComponent/BattleImageArea";
 import LinearProgress from '@mui/material/LinearProgress'; 
 
 // import { TypingCountProvider } from "./context/TypingCountContext";
@@ -16,7 +16,7 @@ function App() {
   const [typingWordList, setTypingWordList] = useState<String[] | null>(null);
   const [enemyHp, setEnemyHp] = useState<number>(100);
   const [myHp, setMyHp] = useState<number>(100);
- const  gameLevel = useRef()
+//  const  gameLevel = useRef()
 
 
   //問題文取得API
@@ -42,7 +42,7 @@ function App() {
       <LinearProgress variant="determinate" value={myHp}  className = "myHp-var"/>
       <LinearProgress variant="determinate" value={enemyHp}  className = "enemyHp-var"/>
       </span>
-      <Enemy />
+      <BattleImageArea enemyHp={enemyHp} myHp={myHp}/>
       <StartModal
         startModalState={startModalState}
         setStartModalState={setStartModalState}
@@ -51,6 +51,8 @@ function App() {
         resultModalState={resultModalState}
         setResultModalState={setResultModalState}
         setStartModalState={setStartModalState}
+        enemyHp={enemyHp}
+        myHp={myHp}
       />
       <TypingArea
         typingWordList={typingWordList}

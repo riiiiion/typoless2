@@ -1,0 +1,10 @@
+
+.battle-image-container{
+    margin-top: 40px;
+    display: flex;
+    justify-content:space-around;
+}
+
+.my-image{
+    transform: scaleX(-1);
+}

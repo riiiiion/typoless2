@@ -15,7 +15,7 @@ import {
   setTotalTypingCounter,
   damageInterval,
   typoDamageRatio,
-  damageRatio
+  damageRatio,
 } from "./globalVariables";
 
 type Prop = {
@@ -47,10 +47,12 @@ const TypingArea: React.FC<Prop> = ({
   ) as HTMLCollectionOf<HTMLElement>;
   const inputSound = new Audio("sound/kick.mp3");
   const missSound = new Audio("sound/Quiz-Wrong_Buzzer02-1.mp3");
- 
+
   useEffect(() => {
     if (resultModalState) {
       document.removeEventListener("keydown", keypressEvent, false);
+      clearTimeout(attackTimerId.current);
+      clearInterval(attackIntervalId.current);
       console.log("removeしました！");
     }
   }, [resultModalState]);
@@ -62,36 +64,40 @@ const TypingArea: React.FC<Prop> = ({
     }
   }, [startModalState]);
 
-
   //タイピング回数の初期化
-  useEffect(()=>{
-    setCorrectTypingCounter(0)
-    setInCorrectTypingCounter(0)
-    setTotalTypingCounter(0)
-  },[])
+  useEffect(() => {
+    setCorrectTypingCounter(0);
+    setInCorrectTypingCounter(0);
+    setTotalTypingCounter(0);
+  }, []);
 
-  
   const beAttacked = useCallback((prev: number) => {
-    const newHp =  prev - damageRatio
-      if(newHp <= 0){
-        setResultModalState(true)
-      }
-    return newHp
-    },[]);
+    const newHp = prev - damageRatio;
+    if (newHp <= 0) {
+      setResultModalState(true);
+    }
+    return newHp;
+  }, []);
+  const beAttackedTypo = useCallback((prev: number) => {
+    const newHp = prev - typoDamageRatio;
+    if (newHp <= 0) {
+      setResultModalState(true);
+    }
+    return newHp;
+  }, []);
 
-    const enemyAttack = useCallback((prev: number) => {
-      const newHp =  prev - 1
-        if(newHp <= 0){
-          setResultModalState(true)
-        }
-      return newHp
-      },[]);
+  const enemyAttack = useCallback((prev: number) => {
+    const newHp = prev - 1;
+    if (newHp <= 0) {
+      setResultModalState(true);
+    }
+    return newHp;
+  }, []);
 
   const keypressEvent = useCallback((e: any) => {
-    
     clearTimeout(attackTimerId.current);
     clearInterval(attackIntervalId.current);
-    
+
     if (e.key === spotTag[0].innerHTML) {
       spotTag[0].style.color = "red";
       spotTag[0].classList.remove("spotLetter");
@@ -99,7 +105,7 @@ const TypingArea: React.FC<Prop> = ({
 
       setTotalTypingCounter(totalTypingCounter + 1);
       setCorrectTypingCounter(correctTypingCounter + 1);
-      
+
       //enemy攻撃処理
       setEnemyHp(enemyAttack);
       inputSound.currentTime = 0;
@@ -108,28 +114,25 @@ const TypingArea: React.FC<Prop> = ({
     } else if (e.key !== "Shift") {
       setTotalTypingCounter(totalTypingCounter + 1);
       setInCorrectTypingCounter(inCorrectTypingCounter + 1);
-      setMyHp(beAttacked);
+      setMyHp(beAttackedTypo);
       console.log(e.key);
       missSound.currentTime = 0;
       missSound.play();
     }
     //何も操作がない時の単発攻撃
-        attackTimerId.current = setTimeout(() => {
-          setMyHp(beAttacked);
-          attackFlag.current = true;
-        }, damageInterval);
-    
+    attackTimerId.current = setTimeout(() => {
+      setMyHp(beAttacked);
+      attackFlag.current = true;
+    }, damageInterval);
+
     //何も操作がない時の定期攻撃
-        attackIntervalId.current = setInterval(() => {
-          if (!attackFlag.current) {
-            setMyHp(beAttacked);
-          } else {
-            attackFlag.current = false;
-          }
-        }, damageInterval);
-
-
-
+    attackIntervalId.current = setInterval(() => {
+      if (!attackFlag.current) {
+        setMyHp(beAttacked);
+      } else {
+        attackFlag.current = false;
+      }
+    }, damageInterval);
   }, []);
 
   return (

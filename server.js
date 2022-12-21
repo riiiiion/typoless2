@@ -84,7 +84,7 @@ app.post("/post/login",async (req,res) =>{
   }
 })
 
-//ランキング取得処理
+//ランキング上位30件取得処理
 app.get("/get/ranking", async (req, res) => {
   const rankingList = await knex("account")
   .select("name", "high_score","icon")
@@ -95,6 +95,20 @@ app.get("/get/ranking", async (req, res) => {
   res.json(rankingList).status(200);
 });
 
+
+//自分が何位なのか表示
+app.get("/get/myRanking",async (req,res)=>{
+  const score = req.query.score
+  const rankingCount = await knex("account")
+  .count("*")
+  .where("high_score",">",score)
+
+  console.log(rankingCount);
+  const myRanking = {
+    ranking:Number(rankingCount[0].count) + 1
+  }
+  res.json(myRanking).status(200)
+})
 
 
 // app.get('*', (req, res) => {
